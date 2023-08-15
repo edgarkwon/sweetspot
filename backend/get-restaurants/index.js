@@ -105,15 +105,20 @@ exports.handler = async (event, context) => {
         return a.id - b.id;
       });
       
+      const responseBody = {
+        addressCode: addressCode,
+        list: finalList
+      };
+      
       return {
-        statusCode: 200,
-        body: JSON.stringify(finalList),
-        headers: {
-          'Access-Control-Allow-Origin': '*',
-          'Access-Control-Allow-Headers': '*',
-          'Access-Control-Allow-Methods': '*'
-        },
-      };      
+          statusCode: 200,
+          body: JSON.stringify(responseBody),
+          headers: {
+              'Access-Control-Allow-Origin': '*',
+              'Access-Control-Allow-Headers': '*',
+              'Access-Control-Allow-Methods': '*'
+          },
+      };   
     } catch (error) {
       console.error(error);
       return {
