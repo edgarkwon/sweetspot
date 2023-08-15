@@ -4,6 +4,7 @@
 /node_modules
 /.pnp
 .pnp.js
+/backend/get-restaurants/node_modules
 
 # testing
 /coverage
