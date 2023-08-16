@@ -251,7 +251,11 @@ const App = () => {
                     {apiData.map((item, index) => (
                         <TableRow key={index}>
                             <TableCell>{index + 1}</TableCell>
-                            <TableCell>{item.place_name}</TableCell>
+                            <TableCell>
+                                <a href={"https://place.map.kakao.com/" + item.id} target="_blank" rel="noopener noreferrer">
+                                    {item.place_name}
+                                </a>
+                            </TableCell>
                             <TableCell>{item.category_name}</TableCell>
                             <TableCell>{item.distance}</TableCell>
                             <TableCell>{item.sector.join(', ')}</TableCell>
