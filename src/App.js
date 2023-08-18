@@ -75,14 +75,27 @@ const App = () => {
                 setApiData(data.list);
                 const updatedCounts = { ...initialCounts }; // 초기 카운트 복사
                 // apiData를 통해 섹터별 카운트를 업데이트합니다.
-                data.list.forEach(place => {
-                place.sector.forEach(sector => {
-                    updatedCounts[sector]++;
-                });
-                });
+                // data.list.forEach(place => {
+                // place.sector.forEach(sector => {
+                //     updatedCounts[sector]++;
+                // });
+                // });
 
-                // 카운트를 업데이트하고 sortedSectors도 재정렬합니다.
-                setSectorCounts(updatedCounts);
+                // // 카운트를 업데이트하고 sortedSectors도 재정렬합니다.
+                // setSectorCounts(updatedCounts);
+
+                data.list.forEach(place => {
+                    const weight = 1000 / (place.distance * place.distance);  // 거리의 역수를 가중치로 사용
+              
+                    place.sector.forEach(sector => {
+                      if (updatedCounts[sector] !== undefined) {
+                        updatedCounts[sector] += weight;  // 가중치를 적용하여 카운트 업데이트
+                      }
+                    });
+                  });
+              
+                  // 카운트를 업데이트하고 sortedSectors도 재정렬합니다.
+                  setSectorCounts(updatedCounts);
                 setDataLoading(false);
             } catch (error) {
                 console.error(error);
@@ -232,7 +245,7 @@ const App = () => {
             <div style={{ marginBottom: '20px', textAlign: 'center' }}>
                     {sortedSectors.map((sector, index) => (
                         <span key={index} style={{ marginRight: '10px' }}>
-                            {sector[0]}: {sector[1]}
+                            {sector[0]}: {Math.round(sector[1] * 100) / 100}
                         </span>
                     ))}
             </div>
